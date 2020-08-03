@@ -65,8 +65,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildActions() 
-  {
+  List<Widget> _buildActions() {
     return <Widget>[
       MaterialButton(
         child: Text(
@@ -182,7 +181,7 @@ class HomePage extends StatelessWidget {
   // Body Methods:--------------------------------------------------------------
   Widget _buildIllustration() {
     return Image.network(
-      Assets.programmer3,
+      Assets.prof,
       height: ScreenUtil.getInstance().setWidth(345), //480.0
     );
   }
@@ -280,19 +279,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Skills Methods:------------------------------------------------------------
-  final skills = [
-    'C#',
-    'C++',
-    'Python',
-    'Unity',
-    'Unreal',
-    'Data Visualization',
-    'XR Development',
-  ];
-
   Widget _buildSkills(BuildContext context) {
-    final List<Widget> widgets = skills
+    final List<Widget> skillWidget = Strings.skills
+        .map((skill) => Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: _buildSkillChip(context, skill),
+            ))
+        .toList();
+    final List<Widget> areaWidget = Strings.areas
         .map((skill) => Padding(
               padding: EdgeInsets.only(right: 8.0),
               child: _buildSkillChip(context, skill),
@@ -304,8 +298,12 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _buildSkillsContainerHeading(),
-        Wrap(children: widgets),
-//        _buildNavigationArrows(),
+        SizedBox(height: 20.0),
+        Wrap(children: skillWidget),
+        SizedBox(height: 50.0),
+        _buildExperienceAreas(),
+        SizedBox(height: 20.0),
+        Wrap(children: areaWidget),
       ],
     );
   }
@@ -313,6 +311,13 @@ class HomePage extends StatelessWidget {
   Widget _buildSkillsContainerHeading() {
     return Text(
       Strings.skills_i_have,
+      style: TextStyles.sub_heading,
+    );
+  }
+
+  Widget _buildExperienceAreas() {
+    return Text(
+      Strings.areas_of_experience,
       style: TextStyles.sub_heading,
     );
   }
@@ -331,14 +336,8 @@ class HomePage extends StatelessWidget {
   // Education Methods:---------------------------------------------------------
   final educationList = [
     Education(
-      'Oct 2020',
-      'Dec 2020',
-      'Iron Hack',
-      'Data Analyst Certification',
-    ),
-    Education(
       'Jul 2019',
-      'Oct 2020',
+      'Aug 2020',
       'ToroLabs',
       'Multi-platform Unity Developer',
     ),
@@ -372,31 +371,14 @@ class HomePage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //_buildEducationContainerHeading(),
-        //_buildEducationSummary(),
-        //SizedBox(height: 8.0),
+        SizedBox(height: 8.0),
         _buildEducationTimeline(),
       ],
     );
   }
 
-  Widget _buildEducationContainerHeading() 
-  {
-    return Text(
-      Strings.experience,
-      style: TextStyles.sub_heading,
-    );
-  }
-
-  Widget _buildEducationSummary() 
-  {
-    return Text(
-      'Academic and work experience',
-      style: TextStyles.body,
-    );
-  }
-
   Widget _buildEducationTimeline() {
+    // ignore: omit_local_variable_types
     final List<Widget> widgets = educationList
         .map((education) => _buildEducationTile(education))
         .toList();
@@ -470,26 +452,25 @@ class HomePage extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            html.window
-                .open("https://www.linkedin.com/in/seprab/", "LinkedIn");
+            html.window.open("https://www.linkedin.com/in/seprab/", "LinkedIn");
           },
-          child: Image.network(
-            Assets.linkedin,
-            color: Color(0xFF45405B),
-            height: 20.0,
-            width: 20.0,
+          child: Icon(
+            Icons.account_circle,
+            color: Colors.black,
+            size: 24.0,
           ),
         ),
         SizedBox(width: 16.0),
         GestureDetector(
           onTap: () {
-            html.window.open("https://drive.google.com/file/d/1p-5giURhH4SFQ5CFG8sMRWew85ffWw2a/view?usp=sharing", "CV");
+            html.window.open(
+                "https://drive.google.com/file/d/1IelFD5vAJqtFWGOxVw66VFh8pceMT3iP/view?usp=sharing",
+                "CV");
           },
-          child: Image.network(
-            Assets.cv,
-            color: Color(0xFF45405B),
-            height: 20.0,
-            width: 20.0,
+          child: Icon(
+            Icons.description,
+            color: Colors.black,
+            size: 24.0,
           ),
         ),
         SizedBox(width: 16.0),
@@ -497,11 +478,10 @@ class HomePage extends StatelessWidget {
           onTap: () {
             html.window.open("mailto:ing.seprab@gmail.com", "Mail to SepraB");
           },
-          child: Image.network(
-            Assets.mail,
-            color: Color(0xFF45405B),
-            height: 20.0,
-            width: 20.0,
+          child: Icon(
+            Icons.mail,
+            color: Colors.black,
+            size: 24.0,
           ),
         ),
       ],
